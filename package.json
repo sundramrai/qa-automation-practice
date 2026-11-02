@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+    "scripts": {
+    "api": "newman run postman/restful-booker.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export reports/api-report.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
