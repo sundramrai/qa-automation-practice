@@ -14,9 +14,13 @@
           "listen": "test",
           "script": {
             "exec": [
+              "",
+              "pm.test(\"Status is 200\",function(){",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
               "pm.test(\"Token is received\",function (){",
               "    const token=pm.response.json().token;",
-              "    pm.response.to.have.status(200);",
               "    pm.expect(token).to.not.be.null;",
               "    pm.expect(token).to.be.a(\"string\");",
               "    pm.collectionVariables.set(\"token\",token);",
@@ -486,7 +490,7 @@
             "booking"
           ]
         },
-        "description": "Sending POST /booking with no body returns 500 Internal Server Error. It should return 400 Bad Request.\n\n**Bug:** POST /booking with empty body returns 500 Internal Server Error.  \n**Expected:** 400 Bad Request with a validation message.  \n**Steps:** Send POST /booking with Content-Type: application/json and body As none.  \n**Severity:** Medium (server error on invalid input)."
+        "description": "Sending POST /booking with no body returns 500 Internal Server Error. It should return 400 Bad Request.\n\n**Bug:** POST /booking with empty body returns 500 Internal Server Error.  \n**Expected:** 400 Bad Request with a validation message.  \n**Steps:** Send POST /booking with Content-Type: application/json and an empty body  \n**Severity:** Medium (server error on invalid input)."
       },
       "response": []
     }
