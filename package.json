@@ -1,18 +1,17 @@
 {
   "name": "qa-automation-practice",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-    "scripts": {
+  "description": "Postman + Newman API tests for the Restful Booker demo API (practice project)",
+  "scripts": {
     "api": "newman run postman/restful-booker.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export reports/api-report.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "newman run postman/restful-booker.postman_collection.json"
   },
   "repository": {
     "type": "git",
     "url": "git+https://sundramrai@github.com/sundramrai/qa-automation-practice.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sundram Rai",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
