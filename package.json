@@ -4,7 +4,8 @@
   "description": "Postman + Newman API tests for the Restful Booker demo API (practice project)",
   "scripts": {
     "api": "newman run postman/restful-booker.postman_collection.json -r cli,htmlextra --reporter-htmlextra-export reports/api-report.html",
-    "test": "newman run postman/restful-booker.postman_collection.json"
+    "test": "newman run postman/restful-booker.postman_collection.json",
+    "ui": "playwright test"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
   },
   "homepage": "https://github.com/sundramrai/qa-automation-practice#readme",
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.6",
     "newman": "^6.2.3",
     "newman-reporter-htmlextra": "^1.23.1"
   }
