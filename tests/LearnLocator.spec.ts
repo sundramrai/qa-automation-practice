@@ -3,21 +3,17 @@ import {test,expect } from "@playwright/test";
 test('Check locator',async function({page}){
 
 
-    await page.goto('https://testautomationpractice.blogspot.com/p/playwrightpractice.html');
-    await page.getByTestId('edit-profile-btn-1').click();
-
-
 //Get by placeholder element
 
 
-// await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
-// await page.getByPlaceholder('username').fill('admin');
-// await page.waitForTimeout(1000);
-// await page.getByPlaceholder('password').fill('admin123');
-// await page.waitForTimeout(1000);
-// await page.getByRole('button',{name: 'Login'}).click();
-// await page.waitForTimeout(1000); 
+await page.getByPlaceholder('username').fill('admin');
+await page.waitForTimeout(1000);
+await page.getByPlaceholder('password').fill('admin123');
+await page.waitForTimeout(1000);
+await page.getByRole('button',{name: 'Login'}).click();
+await page.waitForTimeout(1000); 
 
 
 

@@ -12,7 +12,6 @@ test("JS alert demo test",async function ({page}){
 
     page.on('dialog' ,async dialog =>{
 
-        // NEW: console.log ki jagah check karo ki alert ka message sahi hai
         expect(dialog.type()).toBe('prompt');
         expect(dialog.message()).toBe('Please enter your name');
         await dialog.accept('SundramPW');
@@ -20,8 +19,6 @@ test("JS alert demo test",async function ({page}){
 
     await page.locator('//*[@id="__next"]/div/main/section[2]/div/div/div/div[3]/p[1]/button').click();
 
-    // OLD: await page.waitForTimeout(3000);  (aur koi check nahi)
-    // NEW: alert mein jo naam diya, wo page pe dikh raha hai ya nahi
     await expect(page.locator('#prompt-demo')).toHaveText("You have entered 'SundramPW' !");
 
 })
