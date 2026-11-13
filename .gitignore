@@ -8,3 +8,8 @@ reports/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+.vscode/
+screenshots/
+*.png
+
+
