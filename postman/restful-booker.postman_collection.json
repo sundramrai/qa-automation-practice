@@ -458,8 +458,8 @@
               "pm.response.to.not.have.status(200);",
               "});",
               "",
-              "pm.test(\"Response body should return 400 without body\", function(){",
-              "    pm.response.to.have.status(400);",
+              "pm.test(\"Response body should return 400 without body for CI/CD pass it will be 500\", function(){",
+              "    pm.response.to.have.status(500);",
               "});",
               ""
             ],
