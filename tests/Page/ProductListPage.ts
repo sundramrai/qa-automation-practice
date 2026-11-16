@@ -28,8 +28,9 @@ export class ProductListPage{
     }
 
 
+    // Clicks the cart link, not the badge: the badge is not rendered when the cart is empty.
     async clickCartBadgeIcon(){
-        await this.cartbadgeicon.click();
+        await this.cartIcon.click();
 
     }
 

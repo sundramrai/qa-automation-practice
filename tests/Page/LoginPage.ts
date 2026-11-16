@@ -21,12 +21,8 @@ async GoToApplication(){
 
  async doLogin(){
     await this.username.fill('standard_user');
-    await this.page.waitForTimeout(1000);
     await this.password.fill('secret_sauce');
-    await this.page.waitForTimeout(1000);
     await this.loginButton.click();
-    await this.page.waitForTimeout(1000);
-
  }
 
 

@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 
-// Is file mein expect pehle se sahi the. Sirf waitForTimeout hataye hain.
+// Same checks as the original file, with the hard waits (waitForTimeout) removed.
 test('login test',async ({page})=>{
 
     await page.goto('https://practicetestautomation.com/practice-test-login/')

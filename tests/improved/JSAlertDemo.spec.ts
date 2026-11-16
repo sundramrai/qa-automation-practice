@@ -4,12 +4,6 @@ test("JS alert demo test",async function ({page}){
 
     await page.goto('https://www.testmuai.com/selenium-playground/javascript-alert-box-demo/');
 
-    // OLD: await page.waitForTimeout(3000);
-    // Ye page React se banta hai. Load hone ke turant baad button pe click ka asar nahi hota,
-    // isliye aapko 3 second rukna pad raha tha.
-    // NEW: fixed time ki jagah tab tak ruko jab tak page ki saari network calls khatam na ho jaayein.
-    await page.waitForLoadState('networkidle');
-
     page.on('dialog' ,async dialog =>{
 
         expect(dialog.type()).toBe('prompt');
@@ -17,8 +11,15 @@ test("JS alert demo test",async function ({page}){
         await dialog.accept('SundramPW');
     });
 
-    await page.locator('//*[@id="__next"]/div/main/section[2]/div/div/div/div[3]/p[1]/button').click();
+    // The "Click Me" button next to the "Prompt box:" label (the page has 3 "Click Me" buttons).
+    const promptButton = page.locator('p', { hasText: 'Prompt box' }).getByRole('button', { name: 'Click Me' });
+    const result = page.locator('#prompt-demo');
 
-    await expect(page.locator('#prompt-demo')).toHaveText("You have entered 'SundramPW' !");
+    // The page is built with React. A click right after load can land before React is ready
+    // and do nothing, so retry the click until the result text appears.
+    await expect(async () => {
+        await promptButton.click();
+        await expect(result).toHaveText("You have entered 'SundramPW' !", { timeout: 2000 });
+    }).toPass({ timeout: 15000 });
 
 })

@@ -31,10 +31,10 @@ The collection walks through the full life of a booking. The auth token and book
 | Area | Files |
 |------|-------|
 | Sauce Demo flows: header, cart count, cart item, checkout total | `tests/saucedemo.spec.ts` |
-| Page Object Model: login, add to cart, cart check | `tests/SauceDemoPOM.spec.ts`, `tests/Page/` |
-| Element handling: locators, checkbox, dropdown, iframe, JS alerts, multiple tabs, tables, screenshots | other files in `tests/` |
+| Page Object Model: login, add to cart, cart check | `tests/improved/SauceDemoPOM.spec.ts`, `tests/Page/` |
+| Element handling: locators, checkbox, dropdown, iframe, JS alerts, multiple tabs, tables, screenshots, page title | other files in `tests/improved/` |
 
-`tests/` holds the original practice files. `tests/improved/` holds cleaned-up versions of the same tests, which are the ones CI runs. Screenshots are taken for every test, and failed tests are retried (once locally, twice in CI).
+Everything under `tests/` runs, locally and in CI. `practice/original/` keeps the first versions of the practice tests for reference; Playwright does not run them. Screenshots are saved only for failed tests, and failed tests are retried twice in CI (no retries locally, so flaky tests show up).
 
 ## How to run
 
@@ -54,15 +54,16 @@ npx playwright install
 
 ## CI
 
-`.github/workflows/playwright.yml` runs on every push and pull request to `main`. It runs the API tests, then the Playwright tests in `tests/improved/` and `tests/saucedemo.spec.ts` on Chromium, and uploads the Playwright HTML report as a build artifact.
+`.github/workflows/playwright.yml` runs on every push and pull request to `main`. It runs the API tests, then the Playwright tests in `tests/` on Chromium, and uploads the Playwright HTML report as a build artifact.
 
 ## Project layout
 
 ```
 postman/restful-booker.postman_collection.json   Postman collection with test scripts
-tests/                                           Playwright practice tests
+tests/saucedemo.spec.ts                          Sauce Demo flow tests
 tests/Page/                                      Page objects for Sauce Demo
-tests/improved/                                  Cleaned-up tests that CI runs
+tests/improved/                                  Element handling and POM tests
+practice/original/                               First versions of the practice tests (not run)
 playwright.config.ts                             Playwright settings (browsers, retries, screenshots)
 .github/workflows/playwright.yml                 GitHub Actions pipeline
 package.json                                     Dependencies and the npm scripts

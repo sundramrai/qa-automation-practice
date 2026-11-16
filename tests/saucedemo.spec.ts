@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-// Har test se pehle login karo
+// Log in before every test
 test.beforeEach(async ({ page }) => {
   await page.goto('https://www.saucedemo.com/');
   await page.locator('[data-test="username"]').fill('standard_user');
@@ -8,24 +8,24 @@ test.beforeEach(async ({ page }) => {
   await page.locator('[data-test="login-button"]').click();
 });
 
-test('header match karo', async ({ page }) => {
-  // Browser tab ka title
+test('header matches', async ({ page }) => {
+  // Browser tab title
   await expect(page).toHaveTitle('Swag Labs');
 
-  // URL sahi page ka hai
+  // URL is the inventory page
   await expect(page).toHaveURL(/inventory\.html/);
 
-  // Page ka logo / header text
+  // Logo / header text
   await expect(page.locator('.app_logo')).toHaveText('Swag Labs');
 
   // Section heading "Products"
   await expect(page.locator('[data-test="title"]')).toHaveText('Products');
 });
 
-test('cart count match karo', async ({ page }) => {
+test('cart count matches', async ({ page }) => {
   const cartBadge = page.locator('[data-test="shopping-cart-badge"]');
 
-  // Shuru mein cart khaali hai, badge dikhna nahi chahiye
+  // Cart starts empty, so the badge should not be shown
   await expect(cartBadge).toBeHidden();
 
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
@@ -34,27 +34,27 @@ test('cart count match karo', async ({ page }) => {
   await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click();
   await expect(cartBadge).toHaveText('2');
 
-  // Ek item hatao, count wapas 1
+  // Remove one item, count goes back to 1
   await page.locator('[data-test="remove-sauce-labs-bike-light"]').click();
   await expect(cartBadge).toHaveText('1');
 });
 
-test('cart mein item ka naam aur price match karo', async ({ page }) => {
+test('cart item name and price match', async ({ page }) => {
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
   await page.locator('[data-test="shopping-cart-link"]').click();
 
-  // Cart page ki heading
+  // Cart page heading
   await expect(page.locator('[data-test="title"]')).toHaveText('Your Cart');
 
-  // Cart mein exactly 1 item hai
+  // Exactly 1 item in the cart
   await expect(page.locator('[data-test="inventory-item"]')).toHaveCount(1);
 
-  // Item ka naam aur price
+  // Item name and price
   await expect(page.locator('[data-test="inventory-item-name"]')).toHaveText('Sauce Labs Backpack');
   await expect(page.locator('[data-test="inventory-item-price"]')).toHaveText('$29.99');
 });
 
-test('checkout pe total value match karo', async ({ page }) => {
+test('checkout item total matches', async ({ page }) => {
   await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();   // $29.99
   await page.locator('[data-test="add-to-cart-sauce-labs-bike-light"]').click(); // $9.99
   await page.locator('[data-test="shopping-cart-link"]').click();
@@ -68,7 +68,7 @@ test('checkout pe total value match karo', async ({ page }) => {
   // Item total = 29.99 + 9.99 = 39.98
   await expect(page.locator('[data-test="subtotal-label"]')).toHaveText('Item total: $39.98');
 
-  // Page se saare prices padh ke khud jodo, aur subtotal se match karo
+  // Add up the prices shown on the page and compare with the subtotal
   const prices = await page.locator('[data-test="inventory-item-price"]').allTextContents();
   const sum = prices.reduce((total, p) => total + parseFloat(p.replace('$', '')), 0);
   await expect(page.locator('[data-test="subtotal-label"]')).toContainText(sum.toFixed(2));
